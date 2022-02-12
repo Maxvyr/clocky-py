@@ -33,9 +33,10 @@ def Init():
         hand.shapesize(1, 1, 6)
         hand.speed(0)
         #Create output text Turtle
-        printer = Turtle()
-        printer.hideturtle()
-        printer.penup()
+    printer = Turtle()
+    printer.color("blue")
+    printer.hideturtle()
+    printer.penup()
             
 def SetupClock(radius):
     #Build the outer frame of the clock
@@ -47,9 +48,8 @@ def SetupClock(radius):
             forward(30)
             Skip(-radius-30)
         else:
-            dot(5)
             Skip(-radius)
-            right(6)
+            right(7.5)
                   
 def Week(t):
     week = [ 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi','Dimanche']
@@ -67,16 +67,14 @@ def Tick():
     second = t.second + t.microsecond*0.000001
     minute = t.minute + second/60.0
     hour = t.hour + minute/60.0
-    secHand.setheading(6*second) #设Orientation, rotate 6 degrees per second
+    secHand.setheading(6*second) #Orientation, rotate 6 degrees per second
     minHand.setheading(6*minute)
     hurHand.setheading(30*hour)
-    tracer(False) #Do not display the drawing process, directly display the drawing results
-    printer.forward(150)
-    printer.write(Week(t), align="center",font=("Courier", 14, "bold"))
-    printer.back(100)
-    printer.write(Date(t), align="center",font=("Courier", 14, "bold"))
-    printer.back(80)
-    printer.write("By M4xvyr", align="center",font=("Courier", 14, "bold"))
+    tracer(False)
+    printer.forward(240)
+    printer.write(f"{Week(t)} {Date(t)}", align="center",font=("Roboto", 24, "bold"))
+    printer.back(30)
+    printer.write("By M4xvyr", align="center",font=("Roboto", 14, "italic"))
     printer.home()
     tracer(True)
     ontimer(Tick, 1000)#Continue to call tick after 1000ms
@@ -84,7 +82,7 @@ def Tick():
 def main():
     tracer(False) #Make multiple drawing objects appear at the same time
     Init()
-    SetupClock(250)
+    SetupClock(360)
     tracer(True)
     Tick()
     mainloop()
